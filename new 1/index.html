@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aegexia - The Future of Smart Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #50E3C2;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --white-color: #ffffff;
+            --font-family: 'Poppins', sans-serif;
+            --border-radius: 8px;
+            --shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.7;
+            background: var(--white-color);
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 2.5rem;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease-out;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 0.7rem 1.6rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        .btn-login:hover {
+            color: var(--white-color);
+        }
+        .btn-login:hover::before {
+            left: 0;
+        }
+        
+        .btn-signup {
+            background: var(--primary-color);
+            color: var(--white-color);
+        }
+        .btn-signup:hover {
+            background: #3a7ac8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4); /* Glow effect on hover */
+        }
+
+        .hamburger { display: none; cursor: pointer; }
+        .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--dark-color); border-radius: 5px; transition: all 0.3s ease-in-out; }
+        
+        /* --- Hero Section --- */
+        .hero { 
+            min-height: 90vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 4rem 2rem; 
+            overflow: hidden; 
+            position: relative;
+            background-size: 300% 300%;
+            background-image: linear-gradient(-45deg, #eef7ff, #f2f2ff, #ffffff, #f0fff9);
+            animation: AnimateBG 20s ease infinite;
+        }
+        @keyframes AnimateBG { 
+            0%{background-position:0% 50%}
+            50%{background-position:100% 50%}
+            100%{background-position:0% 50%}
+        }
+        
+        .hero-container { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
+        .hero-content { flex: 1; max-width: 550px; }
+        .hero-title { font-size: 3.2rem; line-height: 1.2; margin-bottom: 1.5rem; color: var(--dark-color); font-weight: 700; }
+        .hero-title .char {
+            opacity: 0;
+            transform: translateY(25px) rotate(5deg);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            display: inline-block;
+        }
+        .hero-subtitle { font-size: 1.2rem; margin-bottom: 2.5rem; color: #555; }
+        .hero-image { flex: 1; }
+        .hero-image img { max-width: 100%; height: auto; animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+
+        /* --- Features Section (NEW GRID LAYOUT) --- */
+        .features { padding: 8rem 0; text-align: center; background: var(--white-color); overflow: hidden; position: relative; z-index: 5;}
+        .section-title { font-size: 2.5rem; margin-bottom: 5rem; color: var(--dark-color); font-weight: 600; }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+        }
+        
+        .feature-card { background: var(--white-color); padding: 2.5rem; height: 100%; border-radius: var(--border-radius); box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+        .feature-card:hover { 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 15px 30px rgba(74, 144, 226, 0.2); 
+        }
+        .feature-card:hover .feature-icon svg { animation: jiggle 0.5s; }
+        .feature-icon svg { width: 45px; height: 45px; color: var(--primary-color); margin-bottom: 1.5rem; transition: transform 0.3s ease; }
+        .feature-title { font-size: 1.3rem; margin-bottom: 1rem; font-weight: 600; }
+        .feature-description { font-size: 0.95rem; color: #666; }
+
+        /* --- Footer --- */
+        .footer { background: var(--dark-color); color: #ccc; padding: 3rem 0; margin-top: 4rem; position: relative; z-index: 5; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .powered-by a { font-weight: 500; color: var(--secondary-color); text-decoration: none; transition: color 0.3s ease; }
+        .powered-by a:hover { color: var(--white-color); }
+        
+        /* --- AURORA MOUSE EFFECT --- */
+        .aurora {
+            position: fixed;
+            top: 0; left: 0;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.3) 0%, rgba(74, 144, 226, 0) 60%);
+            filter: blur(80px);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- ANIMATION & KEYFRAMES --- */
+        .hidden-initial {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes jiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
+        
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .hero-container { flex-direction: column; text-align: center; }
+            .hero-image { margin-top: 3rem; }
+            .hero-title { font-size: 2.8rem; }
+            .aurora {display: none;}
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu { position: fixed; left: -100%; top: 5rem; flex-direction: column; background-color: var(--white-color); width: 100%; border-radius: 10px; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); }
+            .nav-menu.active { left: 0; }
+            .nav-item { margin: 2rem 0; opacity: 1; transform: none; }
+            .nav-buttons { display: none; }
+            .hamburger { display: block; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            .hero-title { font-size: 2.4rem; }
+            .footer-content { flex-direction: column; text-align: center; gap: 1rem; }
+            .features { padding: 5rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aurora"></div>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#home" class="nav-logo">Aegexia</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link">Features</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-login">Login</a>
+                <a href="#" class="btn btn-signup">Sign Up</a>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-container">
+                <div class="hero-content hidden-initial">
+                    <h1 class="hero-title">Redefining Smart     Management for a    Smarter Tomorrow.</h1>
+                    <p class="hero-subtitle">Aegexia streamlines operations, boosts collaboration, and drives sustainable growth with intelligent, easy-to-use technology.</p>
+                </div>
+                <div class="hero-image hidden-initial">
+                    <img src="aegexia.png" alt="Management Platform Illustration">
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title hidden-initial">A New Standard in Management Technology</h2>
+                <div class="features-grid hidden-initial">
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z"/></svg></div>
+                        <h3 class="feature-title">Personalized Dashboard</h3>
+                        <p class="feature-description">Custom interfaces for every role: Admin, Faculty, HOD, and Student with relevant tools and data.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.512 2.72a3 3 0 01-4.682-2.72 9.094 9.094 0 013.741-.479m7.512 2.72a8.97 8.97 0 01-7.512-2.72M7.5 9.75h9m-9 0a1.5 1.5 0 01-1.5-1.5V5.25A1.5 1.5 0 017.5 3.75h9a1.5 1.5 0 011.5 1.5v3A1.5 1.5 0 0116.5 9.75h-9z" /></svg></div>
+                        <h3 class="feature-title">Faculty Collaboration</h3>
+                        <p class="feature-description">Empower educators with shared resource libraries and channels to co-create and enhance curriculum.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <h3 class="feature-title">Real-Time Chat & Notification</h3>
+                        <p class="feature-description">Seamless communication and instant alerts for assignments, announcements, and events.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" /></svg></div>
+                        <h3 class="feature-title">Feedback System</h3>
+                        <p class="feature-description">Collect and manage feedback from faculty to foster continuous improvement.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg></div>
+                        <h3 class="feature-title">Exam Seat Allotment</h3>
+                        <p class="feature-description">Automate the complex process of exam seating arrangements with our intelligent algorithm.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.528L16.25 22.5l-.648-1.972a4.5 4.5 0 00-3.09-3.09l-1.972-.648L12.5 16.25l1.972.648a4.5 4.5 0 003.09 3.09l.648 1.972z" /></svg></div>
+                        <h3 class="feature-title">AI Table Generator</h3>
+                        <p class="feature-description">Instantly create timetables and other complex schedules using powerful AI assistance.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg></div>
+                        <h3 class="feature-title">Personal Space</h3>
+                        <p class="feature-description">A secure, private area for users to store personal documents, notes, and resources.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" /></svg></div>
+                        <h3 class="feature-title">Marks Summarizer</h3>
+                        <p class="feature-description">AI-powered analysis to summarize student performance and generate insightful reports.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2025 Aegexia. All rights reserved.</p>
+            <p class="powered-by">Powered by <a href="https://vorniity.rf.gd/?i=1" target="_blank" rel="noopener noreferrer">Vorniity</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- SEGMENT: Mobile Navigation (Hamburger Menu) ---
+            const hamburger = document.querySelector(".hamburger");
+            const navMenu = document.querySelector(".nav-menu");
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            });
+            document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            }));
+
+            // --- SEGMENT: Page Load & Scroll Animations ---
+            const animateTitle = () => {
+                const heroTitle = document.querySelector('.hero-title');
+                if (heroTitle.dataset.animated) return;
+                heroTitle.dataset.animated = true;
+                const text = heroTitle.textContent;
+                heroTitle.innerHTML = '';
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = (char === ' ') ? '\u00A0' : char;
+                    heroTitle.appendChild(span);
+                });
+                
+                heroTitle.querySelectorAll('.char').forEach((span, index) => {
+                    setTimeout(() => {
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0) rotate(0)';
+                    }, index * 30);
+                });
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('hero-content')) {
+                           animateTitle();
+                        }
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.hidden-initial').forEach(el => observer.observe(el));
+            
+            document.querySelectorAll('.nav-item').forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 100 * index);
+            });
+
+            // --- SEGMENT: General Visual Effects ---
+            const aurora = document.querySelector('.aurora');
+            if (aurora) {
+                document.body.addEventListener('mousemove', (e) => {
+                    requestAnimationFrame(() => {
+                        aurora.style.left = `${e.clientX}px`;
+                        aurora.style.top = `${e.clientY}px`;
+                    });
+                });
+            }
+            
+            const heroImage = document.querySelector('.hero-image');
+            if(heroImage){
+                window.addEventListener('scroll', () => {
+                    const scrollY = window.pageYOffset;
+                    heroImage.style.transform = `translateY(${scrollY * 0.3}px)`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
